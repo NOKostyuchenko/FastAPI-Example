@@ -24,6 +24,46 @@ class Person(BaseModel):
     class Config:
         title = "Класс для приветствия"
         str_min_length = 2
+        json_schema_extra = {
+            'examples': [
+                # Первый пример.
+                {
+                    'summary': 'Одна фамилия',
+                    'description': 'Одиночная фамилия передается строкой',
+                    'value': {
+                        'name': 'Taras',
+                        'surname': 'Belov',
+                        'age': 20,
+                        'is_staff': False,
+                        'education_level': 'Среднее образование'
+                    }
+                },
+                # Второй пример.
+                {
+                    'summary': 'Несколько фамилий',
+                    'description': 'Несколько фамилий передаются списком',
+                    'value': {
+                        'name': 'Eduardo',
+                        'surname': ['Santos', 'Tavares'],
+                        'age': 20,
+                        'is_staff': False,
+                        'education_level': 'Высшее образование'
+                    }
+                },
+                # Третий пример.
+                {
+                    'summary': 'Некорректный запрос',
+                    'description': 'Возраст передается только целым числом',
+                    'value': {
+                        'name': 'Eduardo',
+                        'surname': ['Santos', 'Tavares'],
+                        'age': 'forever young',
+                        'is_staff': False,
+                        'education_level': 'Среднее специальное образование'
+                    }
+                }
+            ]
+        }
     
     @field_validator('name')
     def name_cant_be_numeric(cls, value: str):
