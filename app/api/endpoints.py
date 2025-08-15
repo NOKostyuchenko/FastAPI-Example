@@ -1,12 +1,11 @@
-from fastapi import FastAPI, Body
-from uvicorn import run
+from fastapi import APIRouter, Body
 
-from schemas import Person
+from schemas.schemas import Person
 
-app = FastAPI(docs_url="/swagger")
+router = APIRouter()
 
 
-@app.post('/hello')
+@router.post('/hello')
 def greetings(
         person: Person = Body(..., openapi_examples=Person.Config.json_schema_extra["examples"])
     ) -> dict[str, str]:
@@ -22,7 +21,3 @@ def greetings(
     if person.is_staff:
         result += ', сотрудник'
     return {'Hello': result}
-
-
-if __name__ == "__main__":
-    run(app="main:app", reload=True, port=8001)

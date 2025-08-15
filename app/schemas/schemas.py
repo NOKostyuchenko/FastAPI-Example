@@ -2,7 +2,6 @@ import re
 
 from enum import Enum
 from typing import Optional, Union
-
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 
@@ -16,7 +15,7 @@ class Person(BaseModel):
     name: str = Field(..., max_length=20,
                       title="Полное имя",
                       description="Укажите свое полное имя")
-    surname: Union[str, list[str]] = Field(..., max_length=3)
+    surname: Union[str, list[str]] = Field(..., max_length=50)
     age: Optional[int] = Field(None, gt=4, le=99)
     is_staff: bool = Field(False, alias="is-stuff")
     education_level: Optional[EducationLevel]
